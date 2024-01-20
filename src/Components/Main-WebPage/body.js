@@ -7,7 +7,7 @@ import DropDownMenu from "./DropDownMenu.js";
 import TextOutputFeild from "./TextOutputFeild.js";
 import axios from "axios";
 
-const API_KEY = "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";
+// const API_KEY = "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";
 
 const Body = () => {
   // a hook to dynamically disable Submit button when users should not click it.
