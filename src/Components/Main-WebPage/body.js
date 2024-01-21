@@ -12,7 +12,7 @@ const Body = () => {
   // retrieving chatGPT api
   const API_KEY = key;
 
-  // a hook to dynamically disable Submit button when users should not click it.
+  // a hook to dynamically disable Submidt button when users should not click it.
   const [isDisabled, setIsDisabled] = useState(true);
   const [isWaitingResponse, setIsWaitingResponse] = useState(false);
 
