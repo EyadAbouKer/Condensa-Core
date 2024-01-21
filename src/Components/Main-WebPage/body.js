@@ -40,3 +40,19 @@ const Body = () => {
           },
         }
       );
+        // dropDown lists values definition.
+  const depthItems = [
+    { value: "brief", label: "brief" },
+    { value: "normal", label: "normal" },
+    { value: "detailed", label: "detailed" },
+  ];
+  const toneItems = [
+    { value: "funny", label: "funny" },
+    { value: "normal", label: "normal" },
+    { value: "formal", label: "formal" },
+  ];
+  const styleItems = [
+    { value: "paragraph", label: "paragraph" },
+    { value: "bullet points", label: "bullet points" },
+    { value: "abstract", label: "abstract" },
+  ];
