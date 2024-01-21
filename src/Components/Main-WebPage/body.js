@@ -99,3 +99,59 @@ async function sendStringToServer(stringValue) {
 }
 
 /* /----------------------------------------------------------------------------/ */
+/* /----------------------------------------------------------------------------/ */
+
+async function summarizeIt() {
+  const chatGptApiBody_Summarize = {
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system",
+        content:
+        "give a short explanation the of the main concepts this video is explaining " +
+        { selectedDepthOption } +
+        ", " +
+        { selectedToneOption } +
+        ", and in " +
+        { selectedStyleOption } +
+        " format:",
+      },
+      {
+        role: "user",
+        content:
+        "give a short explanation the of the main concepts this video is explaining " +
+        { selectedDepthOption } +
+        ", " +
+        { selectedToneOption } +
+        ", and in " +
+          { selectedStyleOption } +
+          " format: " +
+          transcript,
+        },
+      ],
+    temperature: 0.5,
+    max_tokens: 400,
+    top_p: 0.8,
+  };
+
+  await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + API_KEY,
+    },
+    body: JSON.stringify(chatGptApiBody_Summarize),
+  })
+  .then((data) => {
+    return data.json();
+  })
+  .then((data) => {
+    console.log(data);
+    summaryVariable = data.choices[0].message.content;
+    });
+}
+
+    /* /----------------------------------------------------------------------------/ */
+  };
+
+  export default Body;
