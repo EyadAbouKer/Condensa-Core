@@ -56,3 +56,46 @@ const Body = () => {
     { value: "bullet points", label: "bullet points" },
     { value: "abstract", label: "abstract" },
   ];
+// to keep track of the selected dropdown values.
+let [selectedDepthOption, setSelectedDepthOption] = useState("brief");
+let [selectedToneOption, setSelectedToneOption] = useState("normal");
+let [selectedStyleOption, setSelectedStyleOption] = useState("paragraph");
+
+// summary hook to rerender the summary when the output from chatGPT is generated.
+const [summary, setSummary] = useState("");
+const [text, setText] = useState("");
+
+// to update the summary when we don't need to rerender it.
+let summaryVariable = "";
+// to keep track of the important keywords returned by the request from ChatGPT.
+let importantKeywords = [""];
+
+
+//works with SearchBar to get the input from and update the setURL. it also disables Submit button if search bar is empty.
+const handleInputChange = (e) => {
+  setURL(e.target.value);
+  if (e.target.value !== "") setIsDisabled(false);
+  else setIsDisabled(true);
+};
+
+async function sendStringToServer(stringValue) {
+  try {
+    const response = await axios.post(
+      "http://127.0.0.1:5000/api/getURL",
+      { URL: stringValue },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("Response:", response.data);
+    console.log(typeof response.data);
+    transcript = response.data;
+    // Any code here will execute after the response is received
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+/* /----------------------------------------------------------------------------/ */
