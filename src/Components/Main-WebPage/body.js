@@ -1,6 +1,6 @@
 import React, { StrictMode, useState } from "react";
 import "./Body.css";
-import "./SubmitButton.js";
+
 import SearchBar from "./SearchBar.js";
 import SubmitButton from "./SubmitButton.js";
 import DropDownMenu from "./DropDownMenu.js";
