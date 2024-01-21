@@ -5,8 +5,19 @@
 }
 
 .custom-placeholderr::placeholder {
-    color: #B1B1B1; 
+    color: #B1B1B1;
 }
 .form-controll:focus {
-background-color: 	#63666A;
+    background-color: 	#63666A;
+}
+
+.outputFeildHeader{
+    height: 6.5vh;
+    /* background-color: red; */
+    background-color: #3A3A3A;
+
+}
+
+.custom-placeholder::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
 }

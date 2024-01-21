@@ -1,6 +1,6 @@
 import React, { StrictMode, useState } from "react";
 import "./Body.css";
-
+import "./SubmitButton.js";
 import SearchBar from "./SearchBar.js";
 import SubmitButton from "./SubmitButton.js";
 import DropDownMenu from "./DropDownMenu.js";
@@ -9,27 +9,18 @@ import axios from "axios";
 import key from "./chatGPT_key";
 
 const Body = () => {
-  // retrieving chatGPT api
   const API_KEY = key;
-
-  // a hook to dynamically disable Submidt button when users should not click it.
   const [isDisabled, setIsDisabled] = useState(true);
   const [isWaitingResponse, setIsWaitingResponse] = useState(false);
-
-  // a hook to SubmitButton and SearchBar together
   const [getURL, setURL] = React.useState("");
-
-  // a temp variable that will store the transcript we retrieve from the backend
   let transcript = "";
-
-  // dropDown lists values definition.
   const depthItems = [
     { value: "brief", label: "brief" },
     { value: "normal", label: "normal" },
     { value: "detailed", label: "detailed" },
   ];
   const toneItems = [
-    { value: "funny", label: "funny" },
+    { value: "informative", label: "informative" },
     { value: "normal", label: "normal" },
     { value: "formal", label: "formal" },
   ];
@@ -38,28 +29,18 @@ const Body = () => {
     { value: "bullet points", label: "bullet points" },
     { value: "abstract", label: "abstract" },
   ];
-
-  // to keep track of the selected dropdown values.
   let [selectedDepthOption, setSelectedDepthOption] = useState("brief");
   let [selectedToneOption, setSelectedToneOption] = useState("normal");
   let [selectedStyleOption, setSelectedStyleOption] = useState("paragraph");
-
-  // summary hook to rerender the summary when the output from chatGPT is generated.
   const [summary, setSummary] = useState("");
   const [text, setText] = useState("");
-
-  // to update the summary when we don't need to rerender it.
   let summaryVariable = "";
-  // to keep track of the important keywords returned by the request from ChatGPT.
   let importantKeywords = [""];
-
-  //works with SearchBar to get the input from and update the setURL. it also disables Submit button if search bar is empty.
   const handleInputChange = (e) => {
     setURL(e.target.value);
     if (e.target.value !== "") setIsDisabled(false);
     else setIsDisabled(true);
   };
-
   async function sendStringToServer(stringValue) {
     try {
       const response = await axios.post(
@@ -74,15 +55,10 @@ const Body = () => {
       console.log("Response:", response.data);
       console.log(typeof response.data);
       transcript = response.data;
-      // Any code here will execute after the response is received
     } catch (error) {
       console.error("Error:", error);
     }
   }
-
-  /* /----------------------------------------------------------------------------/ */
-  /* /----------------------------------------------------------------------------/ */
-
   async function summarizeIt() {
     const chatGptApiBody_Summarize = {
       model: "gpt-3.5-turbo",
@@ -108,14 +84,13 @@ const Body = () => {
             ", and in " +
             { selectedStyleOption } +
             " format: " +
-            transcript,
+            transcript.substr(0, 20000),
         },
       ],
       temperature: 0.5,
       max_tokens: 400,
       top_p: 0.8,
     };
-
     await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -132,7 +107,6 @@ const Body = () => {
         summaryVariable = data.choices[0].message.content;
       });
   }
-
   async function findImportantKeywords() {
     const chatGPTApiBody_Keywords = {
       model: "gpt-3.5-turbo",
@@ -153,7 +127,6 @@ const Body = () => {
       max_tokens: 100,
       top_p: 1,
     };
-
     await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -170,14 +143,12 @@ const Body = () => {
         importantKeywords = data.choices[0].message.content.split(",");
       });
   }
-
   async function generateVoice() {
     const chatGPTApiBody_Voice = {
       model: "tts-1",
       input: summaryVariable,
       voice: "alloy",
     };
-
     await fetch("https://api.openai.com/v1/audio/speech", {
       method: "POST",
       headers: {
@@ -189,65 +160,41 @@ const Body = () => {
       console.log(data);
     });
   }
-
-  //this function is going to be used to push the URL to openAI or to another function that concatenates everything
   async function handleSubmit() {
     if (isDisabled) {
       alert("YouTube field is empty, please enter a YouTube Link");
     } else {
       setIsDisabled(true);
       setIsWaitingResponse(true);
-
-      /***********************************************************************************/
-      //calling the function which sends the getURL value to flask for processing
       await sendStringToServer(getURL);
-
       console.log(transcript);
       console.log(typeof selectedStyleOption);
       console.log(selectedStyleOption);
-
-      /************************************************************************************/
-      // using chatGPT api to find the summary of the transcript
       await summarizeIt();
-
-      /*************************************************************************************/
-      // using chatGPT api to find the important keywords of the summary
       await findImportantKeywords();
-
-      /*************************************************************************************/
-      // using chatGPT tts api to get voice of the summary
-      //await generateVoice();
-
       setText(summaryVariable);
       summaryVariable = summaryVariable.split("\n").join("<br>");
-
       for (let i = 0; i < importantKeywords.length; i++) {
         summaryVariable = summaryVariable
           .split(importantKeywords[i])
           .join(
             '<span style="color: #DA5B00; font-weight: bold;">' +
-              importantKeywords[i] +
-              "</span>"
+            importantKeywords[i] +
+            "</span>"
           );
         summaryVariable = summaryVariable
           .split(importantKeywords[i].toLowerCase())
           .join(
             '<span style="color: #DA5B00; font-weight: bold;">' +
-              importantKeywords[i].toLowerCase() +
-              "</span>"
+            importantKeywords[i].toLowerCase() +
+            "</span>"
           );
       }
       setSummary(summaryVariable);
-
       setIsDisabled(false);
       setIsWaitingResponse(false);
     }
   }
-
-  {
-    /* /----------------------------------------------------------------------------/ */
-  }
-
   function updateSelectedDepthItem(evt) {
     setSelectedDepthOption(evt.target.value);
   }
@@ -257,11 +204,14 @@ const Body = () => {
   function updateSelectedStyleItem(evt) {
     setSelectedStyleOption(evt.target.value);
   }
-
+  async function handelSubmit() {
+    if (isDisabled) {
+      alert("YouTube field is empty, please enter a YouTube Link");
+    }
+  }
   return (
     <StrictMode>
       <>
-        {/* /----------------------------------------------------------------------------/ */}
         <div className="p-lg-5 p-md-0 text-white ">
           <p
             className="text-center px-5 pt-5 mt-2 mb-2"
@@ -275,12 +225,9 @@ const Body = () => {
             watching experience, making every video more accessible and
             informative.
           </p>
-          {/* /----------------------------------------------------------------------------/ */}
-          {/* /----------------------------------------------------------------------------/ */}
           <div className="px-5">
             <SearchBar URL={getURL} setterURL={handleInputChange} />
           </div>
-          {/* /----------------------------------------------------------------------------/ */}
 
           <div className="d-flex flex-column flex-sm-row justify-content-between px-5 center">
             <div className="mb-3 d-flex flex-row flex-sm-column justify-content-between ">
@@ -315,12 +262,10 @@ const Body = () => {
               />
             </div>
           </div>
-          {/* /----------------------------------------------------------------------------/ */}
 
           <div className="px-5">
             <TextOutputFeild summary={summary} text={text} />
           </div>
-          {/* /----------------------------------------------------------------------------/ */}
         </div>
       </>
     </StrictMode>
