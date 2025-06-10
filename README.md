@@ -21,4 +21,4 @@ Paste a YouTube link → get a clean summary. Powered by GPT-4 and real-time tra
 > 🚀 Delivered a working MVP under hackathon pressure, proving speed, accuracy, and user-first thinking.
 
  
-🔗 [Devpost Submission](#https://devpost.com/software/condensacore)
+🔗 [Devpost Submission](https://devpost.com/software/condensacore)
