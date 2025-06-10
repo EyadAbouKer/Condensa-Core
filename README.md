@@ -15,10 +15,8 @@ Paste a YouTube link → get a clean summary. Powered by GPT-4 and real-time tra
 - **Transcript Extraction:** `youtube-transcript-api`  
 - **DevOps:** Isolated Python venv for stability  
 
-### My Role  
-- Led full-stack development end-to-end  
-- Designed UX for speed and clarity  
-- Integrated APIs and ensured deployment-readiness in under 24 hours
+### ConUHacks  
+- Designed, built, and tested in under 24 hours in Hackathon Competition
 
 > 🚀 Delivered a working MVP under hackathon pressure, proving speed, accuracy, and user-first thinking.
 
