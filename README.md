@@ -1,18 +1,39 @@
-# CondensaCore,'an innovative YouTube Video Summarizer web app'
+Here’s a more concise and polished version of your markdown for CondensaCore, maintaining a professional tone and key technical highlights:
 
-Led the development of 'CondensaCore,' an innovative YouTube Video Summarizer web app, as a highlight project at ConUHacks - a demanding 24-hour hackathon challenge. This tool represents a breakthrough in digital efficiency, catering to the time-sensitive needs of students and professionals alike.
+CondensaCore – YouTube Video Summarizer Web App
 
-CondensaCore addresses a common dilemma: the need to grasp the essence of lengthy YouTube lectures without the upfront time investment. Our solution? A user-friendly web app that swiftly generates comprehensive summaries from video links. This not only saves valuable time but also enhances learning and information retention.
+Built at ConUHacks, CondensaCore is a fast, AI-powered web app that summarizes YouTube videos — ideal for students and professionals looking to save time without missing context.
 
-Key Contributions and Technical Details:
+Problem
 
-Spearheaded the project from conception to implementation, ensuring seamless integration of front-end and back-end technologies.
-Developed the front-end using React, enhanced by Bootstrap for a responsive and intuitive user interface.
-Integrated OpenAI's GPT-4 API, leveraging its advanced capabilities to produce accurate and coherent summaries.
-Crafted a robust back-end with Python and Flask server, incorporating the 'youtube-transcript-api 0.6.2' by Jdepoix for transcript extraction and processing.
-Implemented a virtual environment to ensure a stable and isolated development space, promoting efficient project management and deployment.
-This project is a testament to my ability to deliver complex, user-centric solutions under tight deadlines, demonstrating proficiency in both front-end and back-end technologies. CondensaCore stands as a prime example of my commitment to innovation and my skill in bridging the gap between technological capability and real-world utility.
+Long educational videos waste time. We created CondensaCore to extract meaningful insights instantly.
 
-# Explore the source code on GitHub: GitHub - CondensaCore
-# View our Hackathon Submission: Devpost - CondensaCore"
+Solution
 
+Paste a YouTube link → get a clean summary. Powered by GPT-4 and real-time transcript parsing.
+
+Tech Stack
+
+Frontend: React + Bootstrap (responsive UI)
+
+Backend: Python (Flask)
+
+AI: OpenAI GPT-4 API
+
+Transcript Extraction: youtube-transcript-api
+
+DevOps: Isolated Python venv for stability
+
+My Role
+
+Led full-stack development end-to-end
+
+Designed UX for speed and clarity
+
+Integrated APIs and ensured deployment-readiness in under 24 hours
+
+🚀 Delivered a working MVP under hackathon pressure, proving speed, accuracy, and user-first thinking.
+
+🔗 GitHub – CondensaCore🔗 Devpost Submission
+
+Let me know if you want a version tailored for LinkedIn or your resume.
