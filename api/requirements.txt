@@ -1,0 +1,3 @@
+Flask==2.2.2
+fla=sk-cors=3.0.10
+youtube-transcript-api==0.6.2
